@@ -18,6 +18,10 @@ I've decided to go with a Sinatra Web app, cause the scope of work seems to be q
 If you are using RVM, I suggest to configure your working environment first: `echo '2.4.1' > .ruby-version && echo 'url_shortener_api' > .ruby-gemset` (Those files should be in your global gitignore).
 
 1. `bundle`
-2. `shotgun config.ru` (Shotgun allows app reload between subsequent requests, and Rack web server interface)
+1. `rake db:setup`
+1. `shotgun config.ru` (Shotgun allows app reload between subsequent requests, and Rack web server interface)
 
-To run test, run `rspec`
+To run tests:
+
+1. Setup database - `rake db:setup RACK_ENV=test` (only once)
+1. Run test - `rspec`
