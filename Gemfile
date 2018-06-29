@@ -10,3 +10,8 @@ gem 'sinatra', '~> 2.0.3'
 gem 'json', '~> 2.1.0'
 gem 'shotgun', '~> 0.9.2'
 gem 'thin', '~> 1.7.2'
+
+group :test do
+  gem 'rspec', '~> 3.7.0'
+  gem 'rack-test', '~> 1.0.0'
+end
