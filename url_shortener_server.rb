@@ -6,6 +6,13 @@ before do
   content_type :json
 end
 
+before do
+  if request.request_method == 'POST'
+    json_params = JSON.parse(request.body.read) rescue {}
+    params.merge!(json_params)
+  end
+end
+
 post '/urlshortener/v1/url' do
   url = UrlShortener.shorten_url(params["longUrl"])
 
@@ -18,11 +25,7 @@ end
 get '/:id' do
   url = UrlShortener.find_url(params["id"])
 
-  if url
-    redirect url.longUrl, 301
-  else
-    halt(404)
-  end
+  url ? redirect(url.longUrl, 301) : halt(404)
 end
 
 not_found do
