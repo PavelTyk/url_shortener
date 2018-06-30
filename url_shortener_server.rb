@@ -15,7 +15,7 @@ before do
   end
 end
 
-post '/urlshortener/v1/url' do
+post '/api/v1/urls' do
   url = UrlShortener.shorten_url(params["longUrl"])
 
   UrlView.new(request).render_one(url)

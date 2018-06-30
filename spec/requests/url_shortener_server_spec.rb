@@ -30,16 +30,16 @@ describe "URL Shortener Sinatra Web Server" do
     end
   end
 
-  describe "POST /urlshortener/v1/url" do
+  describe "POST /api/v1/urls" do
     it "responds with success for valid payload" do
-      post '/urlshortener/v1/url'
+      post '/api/v1/urls'
 
       expect(last_response).to be_ok
     end
 
     it "responds with valid data" do
       long_url = 'http://www.long-url.org/?a=1'
-      post '/urlshortener/v1/url', longUrl: long_url
+      post '/api/v1/urls', longUrl: long_url
       res = JSON.parse(last_response.body)
 
       expect(res['longUrl']).to eq(long_url)
