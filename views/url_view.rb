@@ -4,9 +4,13 @@ class UrlView
     @request = request
   end
 
+  def self.render_json(data)
+    JSON.generate(data)
+  end
+
   # Render URL as JSON.
   def render_one(url)
-    JSON.generate({
+    self.class.render_json({
       "id": build_absolute_url(url.uid),
       "longUrl": url.long_url,
     })

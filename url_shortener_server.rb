@@ -21,6 +21,16 @@ post '/api/v1/urls' do
   UrlView.new(request).render_one(url)
 end
 
+get '/api/v1/urls/:id/analytics' do
+  url = UrlShortener.find_url(params["id"])
+  if url
+    data = UrlShortener.analytics_for(url)
+    UrlView.render_json(data)
+  else
+    halt(404)
+  end
+end
+
 get '/:id' do
   url = UrlShortener.find_url(params["id"])
   UrlShortener.track_click(url, get_valuable_headers(request)) if url

@@ -47,3 +47,10 @@ X-Content-Type-Options: nosniff
 Connection: keep-alive
 Server: thin
 ```
+
+To get shortened URL analytics, make a GET request to `/api/v1/urls/:id/analytics`. CURL example:
+
+```
+$ curl http://localhost:9393/api/v1/urls/4ER/analytics
+{"clicks":0,"referrers":0,"countries":0,"browsers":0,"platforms":0}
+```

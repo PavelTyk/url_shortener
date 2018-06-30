@@ -46,4 +46,32 @@ describe "URL Shortener Sinatra Web Server" do
       expect(res['id']).to_not be_nil
     end
   end
+
+  describe "GET /api/v1/urls/:id/analytics" do
+    it "responds with success for valid id" do
+      url = UrlShortener.shorten_url('http://www.example.com')
+      get "/api/v1/urls/#{url.uid}/analytics"
+
+      expect(last_response).to be_ok
+    end
+
+    it "renders all metrics for valid id" do
+      url = UrlShortener.shorten_url('http://www.example.com')
+      get "/api/v1/urls/#{url.uid}/analytics"
+
+      res = JSON.parse(last_response.body)
+      expect(res).to include('clicks')
+      expect(res).to include('referrers')
+      expect(res).to include('countries')
+      expect(res).to include('browsers')
+      expect(res).to include('platforms')
+    end
+
+    it "responds with 404 if invalid id" do
+      get "/api/v1/urls/0/analytics"
+
+      expect(last_response.status).to eq(404)
+      expect(last_response.body).to eq('Not found')
+    end
+  end
 end

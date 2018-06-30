@@ -1,4 +1,5 @@
 require File.expand_path '../url.rb', __FILE__
+require File.expand_path '../url_analytics.rb', __FILE__
 
 # This is a place to keep business logic for the URL shortener app.
 # Consider it as a top level abstraction / entry point for console usage.
@@ -40,6 +41,13 @@ class UrlShortener
       end
 
       url.url_clicks.create(request_headers: request_headers)
+    end
+
+    # Gathers analytics for given +Url+
+    # Params:
+    # +url+:: +Url+ object to gather stats for.
+    def analytics_for(url)
+      UrlAnalytics.new(url).collect_data
     end
   end
 end

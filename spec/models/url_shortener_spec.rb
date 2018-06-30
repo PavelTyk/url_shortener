@@ -21,4 +21,14 @@ describe "UrlShortener" do
       }.to raise_error(ArgumentError, /Unknown key: "UNKNOWN"/)
     end
   end
+
+  describe ".analytics_for" do
+    it 'counts clicks' do
+      url = UrlShortener.shorten_url('http://example.com')
+
+      expect {
+        UrlShortener.track_click(url, {})
+      }.to change{ UrlShortener.analytics_for(url)['clicks'] }.by(1)
+    end
+  end
 end
