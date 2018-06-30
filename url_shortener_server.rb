@@ -23,6 +23,7 @@ end
 
 get '/:id' do
   url = UrlShortener.find_url(params["id"])
+  UrlShortener.track_click(url, get_valuable_headers(request)) if url
 
   url ? redirect(url.long_url, 301) : halt(404)
 end
@@ -30,4 +31,8 @@ end
 not_found do
   status 404
   'Not found'
+end
+
+def get_valuable_headers(request)
+  request.env.slice(*UrlShortener::VALID_KEYS_FOR_TRACK_CLICK)
 end
