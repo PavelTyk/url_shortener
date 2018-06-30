@@ -31,6 +31,14 @@ get '/api/v1/urls/:id/analytics' do
   end
 end
 
+get '/' do
+  content_type :html
+  <<-HTML
+  <p style="text-align:center;margin-top:100px;">This is a test task for MoneySmart company.
+  More info here: <a href="https://github.com/paveltyk/url_shortener">https://github.com/paveltyk/url_shortener</a></p>
+  HTML
+end
+
 get '/:id' do
   url = UrlShortener.find_url(params["id"])
   UrlShortener.track_click(url, get_valuable_headers(request)) if url

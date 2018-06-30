@@ -1,4 +1,4 @@
-# URL Shortener API web Server
+# URL Shortener API web Server (Ruby+Sinatra+AR)
 
 This is a test task for MoneySmart company.
 
@@ -8,6 +8,8 @@ This is a test task for MoneySmart company.
 4. Make small commits and make the commit messages descriptive so we can see your thought process
 5. Provide unit tests and integration tests
 6. User authentication is optional
+
+Working example can be found here: https://enigmatic-spire-95923.herokuapp.com/
 
 -----------------------
 
@@ -31,14 +33,14 @@ To run tests:
 To shorten a URL, make a POST request to `/api/v1/urls` with `{"longUrl": "http://www.example.com"}` payload. CURL example:
 
 ```
-$ curl http://localhost:9393/api/v1/urls -d '{"longUrl": "http://www.example.com"}'
-{"id":"http://localhost:9393/4ER","longUrl":"http://www.example.com"}
+$ curl https://enigmatic-spire-95923.herokuapp.com/api/v1/urls -d '{"longUrl": "http://www.example.com"}'
+{"id":"https://enigmatic-spire-95923.herokuapp.com/4ER","longUrl":"http://www.example.com"}
 ```
 
 To check the url shortener redirect, use browser or cURL:
 
 ```
-$ curl -I http://localhost:9393/4ER
+$ curl -I https://enigmatic-spire-95923.herokuapp.com/4ER
 HTTP/1.1 301 Moved Permanently
 Content-Type: application/json
 Location: http://www.example.com
@@ -51,6 +53,6 @@ Server: thin
 To get shortened URL analytics, make a GET request to `/api/v1/urls/:id/analytics`. CURL example:
 
 ```
-$ curl http://localhost:9393/api/v1/urls/4ER/analytics
+$ curl https://enigmatic-spire-95923.herokuapp.com/api/v1/urls/4ER/analytics
 {"clicks":0,"referrers":0,"countries":0,"browsers":0,"platforms":0}
 ```
