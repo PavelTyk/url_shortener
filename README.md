@@ -17,11 +17,33 @@ I've decided to go with a Sinatra Web app, cause the scope of work seems to be q
 
 If you are using RVM, I suggest to configure your working environment first: `echo '2.4.1' > .ruby-version && echo 'url_shortener_api' > .ruby-gemset` (Those files should be in your global gitignore).
 
-1. `bundle`
-1. `rake db:setup`
-1. `shotgun config.ru` (Shotgun allows app reload between subsequent requests, and Rack web server interface)
+1. Run `bundle` to install dependencies
+1. Run `rake db:setup` to setup database (you may update database url in `./config.rb`)
+1. Run `shotgun config.ru` to launch web server (Shotgun allows app reload between subsequent requests, and Rack web server interface)
 
 To run tests:
 
 1. Setup database - `rake db:setup RACK_ENV=test` (only once)
 1. Run test - `rspec`
+
+## Usage manual
+
+To shorten a URL, make a POST request to `/api/v1/urls` with `{"longUrl": "http://www.example.com"}` payload. CURL example:
+
+```
+$ curl http://localhost:9393/api/v1/urls -d '{"longUrl": "http://www.example.com"}'
+{"id":"http://localhost:9393/4ER","longUrl":"http://www.example.com"}
+```
+
+To check the url shortener redirect, use browser or cURL:
+
+```
+$ curl -I http://localhost:9393/4ER
+HTTP/1.1 301 Moved Permanently
+Content-Type: application/json
+Location: http://www.example.com
+Content-Length: 0
+X-Content-Type-Options: nosniff
+Connection: keep-alive
+Server: thin
+```
