@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'json'
 require './url_shortener/url_shortener'
+require './views/url_view'
 require './config'
 
 before do
@@ -17,10 +18,7 @@ end
 post '/urlshortener/v1/url' do
   url = UrlShortener.shorten_url(params["longUrl"])
 
-  JSON.generate({
-    "id": request.scheme + '://' + request.host_with_port + '/' + url.id.to_s,
-    "longUrl": url.long_url,
-  })
+  UrlView.new(request).render_one(url)
 end
 
 get '/:id' do
