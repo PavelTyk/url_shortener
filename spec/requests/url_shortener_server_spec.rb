@@ -1,11 +1,11 @@
-require File.expand_path '../spec_helper.rb', __FILE__
+require File.expand_path '../../spec_helper.rb', __FILE__
 
 describe "URL Shortener Sinatra Web Server" do
   describe "GET /:id" do
     it "responds with 301 redirect on success (use 302 if we want counters)" do
       long_url = 'http://www.long-url.org/?a=1'
       url = UrlShortener.shorten_url(long_url)
-      get "/#{url.id}"
+      get "/#{url.uid}"
 
       expect(last_response).to be_redirect
       expect(last_response.status).to eq(301)

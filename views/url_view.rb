@@ -7,7 +7,7 @@ class UrlView
   # Render URL as JSON.
   def render_one(url)
     JSON.generate({
-      "id": build_absolute_url(url.id),
+      "id": build_absolute_url(url.uid),
       "longUrl": url.long_url,
     })
   end

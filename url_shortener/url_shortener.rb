@@ -13,9 +13,9 @@ class UrlShortener
 
     # Finds URL and returns +Url+ object.
     # Params:
-    # +id+:: +String+ representing id of URL (produced by `shorten_url`)
-    def find_url(id)
-      Url.find_by(id: id.to_i)
+    # +uid+:: +String+ representing base58 encoded id of URL (produced by `shorten_url`)
+    def find_url(uid)
+      Url.find_by_uid(uid)
     end
   end
 end
