@@ -18,6 +18,16 @@ describe "URL Shortener Sinatra Web Server" do
       expect(last_response.status).to eq(404)
       expect(last_response.body).to eq('Not found')
     end
+
+    it "track redirect on success" do
+      long_url = 'http://www.long-url.org/?a=1'
+      url = UrlShortener.shorten_url(long_url)
+      expect {
+        get "/#{url.uid}"
+      }.to change(url.url_clicks, :count).by(1)
+
+      expect(url.url_clicks.take.request_headers).to include('REMOTE_ADDR')
+    end
   end
 
   describe "POST /urlshortener/v1/url" do

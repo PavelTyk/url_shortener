@@ -39,7 +39,7 @@ class UrlShortener
         end
       end
 
-      url
+      url.url_clicks.create(request_headers: request_headers)
     end
   end
 end
